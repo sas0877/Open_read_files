@@ -1,18 +1,15 @@
-cook_book = {
-  'Омлет': [
-    {'ingredient_name': 'Яйцо', 'quantity': 2, 'measure': 'шт.'},
-    {'ingredient_name': 'Молоко', 'quantity': 100, 'measure': 'мл'},
-    {'ingredient_name': 'Помидор', 'quantity': 2, 'measure': 'шт'}
-    ],
-  'Утка по-пекински': [
-    {'ingredient_name': 'Утка', 'quantity': 1, 'measure': 'шт'},
-    {'ingredient_name': 'Вода', 'quantity': 2, 'measure': 'л'},
-    {'ingredient_name': 'Мед', 'quantity': 3, 'measure': 'ст.л'},
-    {'ingredient_name': 'Соевый соус', 'quantity': 60, 'measure': 'мл'}
-    ],
-  'Запеченный картофель': [
-    {'ingredient_name': 'Картофель', 'quantity': 1, 'measure': 'кг'},
-    {'ingredient_name': 'Чеснок', 'quantity': 3, 'measure': 'зубч'},
-    {'ingredient_name': 'Сыр гауда', 'quantity': 100, 'measure': 'г'},
-    ]
-  }
+cook_book = {}
+with open('input.txt', encoding='utf-8') as src_file:
+    last_key = ''
+    for line in src_file:
+        line = line.strip()
+        if line.isdigit():
+            continue
+        elif line and '|' not in line:
+            cook_book[line] = []
+            last_key = line
+        elif line and '|' in line:
+            name, qt, msure = line.split(" | ")
+            cook_book.get(last_key).append(dict(ingredient_name=name, quantity=int(qt), measure=msure))
+
+print(cook_book)
